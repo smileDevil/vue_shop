@@ -96,7 +96,7 @@ export default {
             //1.3 token只应当前网站打开期间生效,所以token保存在sessionStorage中
             window.sessionStorage.setItem('token', res.data.token)
             //路由跳转
-            this.$router.push('/home')
+            this.$router.push('/homes')
           }
         } else {
         }

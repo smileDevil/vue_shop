@@ -12,6 +12,12 @@ import ElementUI from 'element-ui'
 Vue.use(ElementUI)
 //配置请求等跟路径 
 axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
+// 设置拦截器 用来添加请求头验证
+axios.interceptors.request.use(config => {
+  //为请求头对象,添加token的验证Authorization字段 
+  config.headers.Authorization = window.sessionStorage.getItem("token")
+  return config
+})
 //设置http
 Vue.prototype.$http = axios //全局挂载axios
 Vue.config.productionTip = false

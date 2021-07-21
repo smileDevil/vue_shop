@@ -20,6 +20,7 @@ const routes = [
       {path:'/welcome', component:()=>import('../components/Welcome.vue')},
       {path:'/user', component:()=>import('../components/user/User.vue')},
       {path:'/roles', component:()=>import('../components/role/Roles.vue')},
+      {path:'/rights', component:()=>import('../components/role/Rights.vue')},
     ]
   },
   {

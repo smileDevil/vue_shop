@@ -76,11 +76,11 @@ export default {
           "icon":"iconfont icon-quanxian",
           "children":[{
             "authName":"角色列表",
-            "path":"/role"
+            "path":"/roles"
           },
           {
             "authName":"权限列表",
-            "path":"/roles"
+            "path":"/rights"
           }]
         },
         {
@@ -88,15 +88,15 @@ export default {
           "icon":"iconfont icon-shangpin",
           "children":[{
             "authName":"商品列表",
-            "path":"/role"
+            "path":"/role2"
           },
           {
             "authName":"分类参数",
-            "path":"/role"
+            "path":"/role3"
           },
           {
             "authName":"商品分类",
-            "path":"/role"
+            "path":"/role4"
           }]
         },
         {
@@ -104,7 +104,7 @@ export default {
           "icon":"iconfont icon-icon-",
           "children":[{
             "authName":"订单列表",
-            "path":"/role"
+            "path":"/role5"
           }]
         },
         {
@@ -112,7 +112,7 @@ export default {
           "icon":"iconfont icon-shujutongji",
           "children":[{
             "authName":"统计列表",
-            "path":"/role"
+            "path":"/role6"
           }]
         }
       ],

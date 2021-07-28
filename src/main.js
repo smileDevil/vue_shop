@@ -7,8 +7,12 @@ import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/global.css'
 import './assets/css/iconfont.css'
-import axios from 'axios';
+import axios from 'axios'
 import ElementUI from 'element-ui'
+//table插件
+import TreeTable from 'vue-table-with-tree-grid'
+
+
 Vue.use(ElementUI)
 //配置请求等跟路径 
 axios.defaults.baseURL = 'http://timemeetyou.com:8889/api/private/v1/'
@@ -21,6 +25,8 @@ axios.interceptors.request.use(config => {
 //设置http
 Vue.prototype.$http = axios //全局挂载axios
 Vue.config.productionTip = false
+//table插件
+Vue.component("tree-table", TreeTable);
 
 new Vue({
   router,

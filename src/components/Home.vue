@@ -92,11 +92,11 @@ export default {
           },
           {
             "authName":"分类参数",
-            "path":"/role3"
+            "path":"/classifty"
           },
           {
             "authName":"商品分类",
-            "path":"/role4"
+            "path":"/cate"
           }]
         },
         {

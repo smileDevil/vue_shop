@@ -21,6 +21,8 @@ const routes = [
       {path:'/user', component:()=>import('../components/user/User.vue')},
       {path:'/roles', component:()=>import('../components/role/Roles.vue')},
       {path:'/rights', component:()=>import('../components/role/Rights.vue')},
+      {path:'/cate', component:()=>import('../components/goods/Cate.vue')},
+      {path:'/classifty',component:()=>import('../components/goods/ClassifyParameters.vue')}
     ]
   },
   {

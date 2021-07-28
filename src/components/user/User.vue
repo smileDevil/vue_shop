@@ -174,26 +174,27 @@
       title="修改用户权限"
       :visible.sync="editUserRoleVisible"
       width="50%"
+      @close="editUserRoleClosed"
     >
       <div>
         <p>当前用户:{{ userInfo.username }}</p>
         <p>当前角色:{{ userInfo.role_name }}</p>
         <p>
           分配角色:
-          <!-- <el-select v-model="value" placeholder="请选择">
+          <el-select v-model="selectRoleId" placeholder="请选择">
             <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              v-for="item in roleList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
             >
             </el-option>
-          </el-select> -->
+          </el-select>
         </p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editUserRoleVisible = false">取 消</el-button>
-        <el-button type="primary" @click="allotUserRoles()">确 定</el-button>
+        <el-button type="primary" @click="saveRoleInfo()">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -440,7 +441,34 @@ export default {
         })
       this.editUserRoleVisible = true
     },
-  },
+    //保存用户修改的权限
+    async saveRoleInfo(){
+    //   if (this.selectRoleId !== null && this.selectRoleId !== undefined && this.selectRoleId !== '') {
+    //     console.log(this.selectRoleId)
+    //     console.log(true)
+    //  }else{
+    //     console.log(false)
+    //  }
+     if(!this.selectRoleId){
+       this.$message.error("请选择要分配的角色")
+     }
+     const {data:res} = await this.$http.put(`users/${this.userInfo.id}/role`,{
+       rid:this.selectRoleId
+     }).catch((err)=>{
+       console.log(err)
+     })
+     console.log(res)
+     if(res.meta.status != 200){
+      return this.$message.error(res.meta)
+     }
+     this.$message.success("修改成功")
+     this.editUserRoleVisible = false
+     this.getUserList()
+    },
+    editUserRoleClosed(){
+        
+    },
+  }
 }
 </script>
 

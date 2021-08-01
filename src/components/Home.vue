@@ -17,7 +17,7 @@
         <el-menu
           :collapse-transition = "false"
           :collapse = "isCollapse"
-          unique-opened 
+          unique-opened
           background-color="#333744"
           text-color="#fff"
           :default-active = "activePath"
@@ -150,7 +150,7 @@ export default {
       this.chooseIndex = activePath,
       window.sessionStorage.setItem("activePath",activePath)
     }
-    
+
   },
 }
 </script>

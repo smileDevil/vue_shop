@@ -467,7 +467,6 @@ export default {
      this.getUserList()
     },
     editUserRoleClosed(){
-        
     },
   }
 }

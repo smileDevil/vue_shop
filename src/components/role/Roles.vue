@@ -228,7 +228,7 @@ export default {
     },
     removeRightById(role, rightId) {
       //弹框提示是否要删除
-      this.$confirm('删除该权限, 是否继续?', '提示', {
+       ('删除该权限, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',

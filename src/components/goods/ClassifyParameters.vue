@@ -35,13 +35,12 @@
             <el-table-column type="expand">
               <template slot-scope="scope">
                 <el-tag
-                v-for="(item,i) in scope.row.attr_vals"
-                :key="i"
-                closable
-                @close="closeAttrVals()"
-                >
-                {{item}}
-              </el-tag>
+                  v-for="(item,i) in scope.row.attr_vals"
+                  :key="i"
+                  closable
+                  @close="closeAttrVals()">
+                  {{item}}
+                </el-tag>
               </template>
             </el-table-column>
             <el-table-column type="index"></el-table-column>
@@ -181,32 +180,31 @@ export default {
     },
     //获取属性
     async getAttributes() {
-      await this.$http
+      const result = await this.$http
         .get('categories/' + this.cateId + '/attributes', {
           params: { sel: this.activeName },
         })
-        .then((result) => {
-          console.log(result)
-          if (result.data.meta.status != 200) {
-            return this.$message.error('没有满足条件数据')
-          }
-          result.data.data.forEach((item) => {
-            if(this.activeName === "many"){
-            item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
-            }else{
-            item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
-            }
-            // if(item.attr_vals.length === 1 && item.attr_vals[0] === ""){
-            //   item.attr_vals = []
-            // }
-          })
-          if (this.activeName === 'many') {
-            this.manyAttributes = result.data.data
-          } else {
-            this.onlyAttributes = result.data.data
-          }
-        })
         .catch((err) => {})
+
+      console.log(result)
+      if (result.data.meta.status != 200) {
+        return this.$message.error('没有满足条件数据')
+      }
+      result.data.data.forEach((item) => {
+        if (this.activeName === 'many') {
+          item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
+        } else {
+          item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
+        }
+        // if(item.attr_vals.length === 1 && item.attr_vals[0] === ""){
+        //   item.attr_vals = []
+        // }
+      })
+      if (this.activeName === 'many') {
+        this.manyAttributes = result.data.data
+      } else {
+        this.onlyAttributes = result.data.data
+      }
     },
     addAttributeClosed() {
       this.$refs.addAtributeFormRef.resetFields()
@@ -278,9 +276,7 @@ export default {
         })
     },
     //删除一个vals
-    closeAttrVals(){
-
-    }
+    closeAttrVals() {},
   },
   computed: {
     // 如果按钮被禁用 返回true 否则返回 false
@@ -316,7 +312,7 @@ export default {
   margin-left: 10px;
   width: 30%;
 }
-.el-tag{
+.el-tag {
   margin: 10px;
 }
 </style>

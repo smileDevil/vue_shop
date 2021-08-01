@@ -160,8 +160,8 @@ export default {
       },
       addParentCateList: [],
       caseCardProp:{
-        checkStrictly: true,
-        expandTrigger:'hover',
+        checkStrictly: true,//是否可选中父项
+        expandTrigger:'hover',//展开方式放上去还是点击 hover/click
         value:'cat_id',
         label:'cat_name',
         children:'children'

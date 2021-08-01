@@ -288,6 +288,7 @@ export default {
       },
       roleList: [],
       userInfo: {}, //当前选中修改权限的role
+      selectRoleId:""
     }
   },
   methods: {

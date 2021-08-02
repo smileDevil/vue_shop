@@ -41,6 +41,17 @@
                   @close="closeAttrVals()">
                   {{item}}
                 </el-tag>
+
+                <el-input
+                  class="input-new-tag"
+                  v-if="scope.row.inputVisible"
+                  v-model="scope.row.inputVal"
+                  ref="attrrInputRef"
+                  size="small"
+                  @keyup.enter.native="handleInputConfirm"
+                  @blur="handleInputConfirm">
+                </el-input>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
               </template>
             </el-table-column>
             <el-table-column type="index"></el-table-column>
@@ -59,7 +70,17 @@
             <el-button type="primary" size="mini" :disabled="isBtnDisable" @click="addAttributeVisilbe = true">添加属性</el-button>
           </div>
           <el-table :data="onlyAttributes" border stripe>
-            <el-table-column type="expand"></el-table-column>
+            <el-table-column type="expand">
+              <template slot-scope="scope">
+                <el-tag
+                  v-for="(item,i) in scope.row.attr_vals"
+                  :key="i"
+                  closable
+                  @close="closeAttrVals()">
+                  {{item}}
+                </el-tag>
+              </template>
+            </el-table-column>
             <el-table-column type="index"></el-table-column>
             <el-table-column label="参数名" prop="attr_name"></el-table-column>
             <el-table-column label="操作">
@@ -190,12 +211,17 @@ export default {
       if (result.data.meta.status != 200) {
         return this.$message.error('没有满足条件数据')
       }
+
       result.data.data.forEach((item) => {
         if (this.activeName === 'many') {
           item.attr_vals = item.attr_vals ? item.attr_vals.split(',') : []
         } else {
           item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
         }
+        //控制文本框显示与隐藏
+        item.inputVisible = false
+        //文本框中输入的内容
+        item.inputVal = ''
         // if(item.attr_vals.length === 1 && item.attr_vals[0] === ""){
         //   item.attr_vals = []
         // }
@@ -277,6 +303,17 @@ export default {
     },
     //删除一个vals
     closeAttrVals() {},
+    //显示输入框
+    showInput(row){
+      row.inputVisible = true
+      this.$nextTick(_ => {
+          this.$refs.attrrInputRef.$refs.input.focus();
+        });
+    },
+    handleInputConfirm(){
+
+
+    }
   },
   computed: {
     // 如果按钮被禁用 返回true 否则返回 false
@@ -314,5 +351,8 @@ export default {
 }
 .el-tag {
   margin: 10px;
+}
+.input-new-tag{
+  width: 120px;
 }
 </style>

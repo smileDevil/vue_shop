@@ -48,8 +48,8 @@
                   v-model="scope.row.inputVal"
                   ref="attrrInputRef"
                   size="small"
-                  @keyup.enter.native="handleInputConfirm"
-                  @blur="handleInputConfirm">
+                  @keyup.enter.native="handleInputConfirm(scope.row)"
+                  @blur="handleInputConfirm(scope.row)">
                 </el-input>
                 <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
               </template>
@@ -306,12 +306,24 @@ export default {
     //显示输入框
     showInput(row){
       row.inputVisible = true
+      //this.$nextTick 刷新页面后的下一步
       this.$nextTick(_ => {
+        //焦点设置
           this.$refs.attrrInputRef.$refs.input.focus();
         });
     },
-    handleInputConfirm(){
+   async handleInputConfirm(row){
+      if(row.inputVal.trim().length === 0){
+        row.inputVal = ''
+         row.inputVisible = false
+         return
+      }
+      //如果没有return 则证明输入的内容需要做处理
+      row.attr_vals.push(row.inputVal.trim())
+      row.inputVal = ''
+      row.inputVisible = false
 
+      const {data:res} = await this.$$http.put(`categories/${this.cateId}attributes/${row.attr_id}`)
 
     }
   },

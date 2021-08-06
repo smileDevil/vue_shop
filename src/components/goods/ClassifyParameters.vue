@@ -38,7 +38,7 @@
                   v-for="(item,i) in scope.row.attr_vals"
                   :key="i"
                   closable
-                  @close="closeAttrVals()">
+                  @close="closeAttrVals(i,scope.row)">
                   {{item}}
                 </el-tag>
 
@@ -76,9 +76,19 @@
                   v-for="(item,i) in scope.row.attr_vals"
                   :key="i"
                   closable
-                  @close="closeAttrVals()">
+                  @close="closeAttrVals(i,scope.row)">
                   {{item}}
                 </el-tag>
+                 <el-input
+                  class="input-new-tag"
+                  v-if="scope.row.inputVisible"
+                  v-model="scope.row.inputVal"
+                  ref="attrrInputRef"
+                  size="small"
+                  @keyup.enter.native="handleInputConfirm(scope.row)"
+                  @blur="handleInputConfirm(scope.row)">
+                </el-input>
+                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
               </template>
             </el-table-column>
             <el-table-column type="index"></el-table-column>
@@ -258,6 +268,7 @@ export default {
     editAttributeClosed() {
       this.selectAttribute = {}
     },
+    //修改属性
     async editAttribute() {
       await this.$http
         .put(
@@ -301,8 +312,7 @@ export default {
           })
         })
     },
-    //删除一个vals
-    closeAttrVals() {},
+   
     //显示输入框
     showInput(row){
       row.inputVisible = true
@@ -312,7 +322,8 @@ export default {
           this.$refs.attrrInputRef.$refs.input.focus();
         });
     },
-   async handleInputConfirm(row){
+    //添加了attr_vals
+    handleInputConfirm(row){
       if(row.inputVal.trim().length === 0){
         row.inputVal = ''
          row.inputVisible = false
@@ -322,9 +333,35 @@ export default {
       row.attr_vals.push(row.inputVal.trim())
       row.inputVal = ''
       row.inputVisible = false
+    
+      this.attrValsAction(row)
 
-      const {data:res} = await this.$$http.put(`categories/${this.cateId}attributes/${row.attr_id}`)
+    },
 
+     //删除一个vals
+    closeAttrVals(i,row) {
+      row.attr_vals.splice(i,1)
+      this.attrValsAction(row)
+    },
+    //处理attr的操作 提取
+    async attrValsAction(row){
+      var attrvalsStr = ""
+      if (this.activeName === 'many') {
+        attrvalsStr = row.attr_vals.join(',')
+      }else{
+        attrvalsStr = row.attr_vals.join(' ')
+      }
+
+      const {data:res} = await this.$http.put(`categories/${this.cateId}/attributes/${row.attr_id}`,{
+        attr_name:row.attr_name,
+        attr_sel :row.attr_sel,
+        attr_vals:attrvalsStr
+      })
+      console.log(res)
+      if(res.meta.status!=200){
+       return this.$message.error("操作失败")
+      }
+      this.$message.success("操作成功")
     }
   },
   computed: {

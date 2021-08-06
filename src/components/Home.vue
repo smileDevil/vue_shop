@@ -4,14 +4,14 @@
     <el-header>
       <div>
         <img src="../assets/appicon.png" alt="" />
-        <span>电商后台管理习系统</span>
+        <span>自动化管理平台</span>
       </div>
       <el-button type="info" @click="loginout"> 退出</el-button>
     </el-header>
     <!-- 主题区域 -->
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside :width="isCollapse ? '64px':'200px'">
+      <el-aside :width="isCollapse ? '64px':'14%'">
         <div class="toggle-button" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单 -->
         <el-menu
@@ -88,7 +88,7 @@ export default {
           "icon":"iconfont icon-shangpin",
           "children":[{
             "authName":"商品列表",
-            "path":"/role2"
+            "path":"/goodslist"
           },
           {
             "authName":"分类参数",
@@ -197,6 +197,7 @@ export default {
 
 .el-main {
   background-color: #efedf1;
+  widows: 86%;
 }
 
 .toggle-button{

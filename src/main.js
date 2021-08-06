@@ -28,6 +28,19 @@ Vue.config.productionTip = false
 //table插件
 Vue.component("tree-table", TreeTable);
 
+//构造一个全局过滤器 过滤时间轴、
+Vue.filter('dateFormat',function(originVal){
+  const dt = new Date(originVal)
+  const year = dt.getFullYear()
+  //默认月份从0 开始 所以要+1
+  const month = (dt.getMonth() + 1 + '').padStart(2,'0')//padStart(2,'0')补足 ,希望字符串有2位,不足2位用0填充
+  const d = (dt.getDate() + '').padStart(2,'0')
+  const hh = (dt.getHours() + '').padStart(2,'0')
+  const mm = (dt.getMinutes() + '').padStart(2,'0')
+  const ss = (dt.getSeconds() + '').padStart(2,'0')
+  return `${year}-${month}-${d} ${hh}:${mm}:${ss}`
+})
+
 new Vue({
   router,
   store,

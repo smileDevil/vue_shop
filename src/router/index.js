@@ -23,6 +23,8 @@ const routes = [
       {path:'/rights', component:()=>import('../components/role/Rights.vue')},
       {path:'/cate', component:()=>import('../components/goods/Cate.vue')},
       {path:'/classifty',component:()=>import('../components/goods/ClassifyParameters.vue')},
+      {path:'/goodslist',component:()=>import('../components/goods/GoodsList.vue')},
+      {path:'/goodslist/add',component:()=>import('../components/goods/GoodsAdd.vue')}
     ]
   },
   {
